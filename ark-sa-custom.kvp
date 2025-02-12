@@ -1,6 +1,6 @@
 Meta.DisplayName=ARK: Survival Ascended (Custom)
-Meta.Description=ARK: Survival Ascended Dedicated Server with Server API option
-Meta.OS=Linux
+Meta.Description=ARK: Survival Ascended Dedicated Server
+Meta.OS=Windows, Linux
 Meta.AarchSupport=Unknown
 Meta.Arch=x86_64
 Meta.Author=ghosttoni
@@ -24,7 +24,7 @@ Meta.NoCommercialUsage=False
 Meta.ConfigVersion=1.7
 Meta.ReleaseNotes=
 Meta.BreakingReleaseNotes=
-Meta.AppConfigId=218120ac-08ee-466e-9f60-5ba605436e11
+Meta.AppConfigId=f9a6bb02-3ce1-4c6a-8bb3-fce53f33bf85
 App.DisplayName=ARK: Survival Ascended
 App.RootDir=./ark-sa/
 App.BaseDirectory=./ark-sa/2430930/
