@@ -79,7 +79,7 @@ App.MonitorChildProcessName=^.*{{ServerExecutable}}\.exe.*Port={{$GamePort}}.*$
 App.SupportsUniversalSleep=False
 App.WakeupMode=Any
 App.ApplicationReadyMode=RegexMatch
-Console.FilterMatchRegex=[[\d;]+m
+Console.FilterMatchRegex=^\[.+?\]\[.+?\]
 Console.FilterMatchReplacement=
 Console.ThrowawayMessageRegex=^(Keep Alive|\[S_API FAIL\] SteamAPI_Init\(\) failed; SteamAPI_IsSteamRunning\(\) failed\.|Server received, But no response!! \n |Setting breakpad minidump AppID = 2399830)$
 Console.AppReadyRegex=^Server has completed startup and is now advertising for join\.$
