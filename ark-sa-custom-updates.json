@@ -98,11 +98,19 @@
     },
     {
         "UpdateStageName": "Start Script Download",
-        "UpdateSourcePlatform": "All",
+        "UpdateSourcePlatform": "Linux",
         "UpdateSource": "FetchURL",
         "UpdateSourceData": "https://raw.githubusercontent.com/ghosttoni/AMPTemplates/main/ark-sa-custom-start.sh",
         "UpdateSourceArgs": "ark-sa-custom-start.sh",
         "UpdateSourceTarget": "{{$FullRootDir}}",
         "OverwriteExistingFiles": true
+    },
+    {
+        "UpdateStageName": "Start Script Permission",
+        "UpdateSourcePlatform": "Linux",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"chmod +x {{$FullRootDir}}ark-sa-custom-start.sh\"",
+        "SkipOnFailure": false
     }
 ]
