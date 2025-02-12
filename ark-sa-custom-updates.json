@@ -112,5 +112,13 @@
         "UpdateSourceData": "/bin/bash",
         "UpdateSourceArgs": "-c \"chmod +x {{$FullRootDir}}ark-sa-custom-start.sh\"",
         "SkipOnFailure": false
+    },
+    {
+        "UpdateStageName": "Delete Movies Folder",
+        "UpdateSourcePlatform": "ALL",
+        "UpdateSource": "Executable",
+        "UpdateSourceData": "/bin/bash",
+        "UpdateSourceArgs": "-c \"rm -r {{$FullBaseDir}}ShooterGame/Content/Movies\"",
+        "SkipOnFailure": false
     }
 ]
