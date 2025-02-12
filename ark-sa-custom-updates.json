@@ -118,7 +118,7 @@
         "UpdateSourcePlatform": "ALL",
         "UpdateSource": "Executable",
         "UpdateSourceData": "/bin/bash",
-        "UpdateSourceArgs": "-c \"rm -r {{$FullBaseDir}}ShooterGame/Content/Movies\"",
+        "UpdateSourceArgs": "-c \"rm -rf {{$FullBaseDir}}ShooterGame/Content/Movies\"",
         "SkipOnFailure": false
     }
 ]
