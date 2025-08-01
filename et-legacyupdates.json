@@ -3,48 +3,30 @@
         "UpdateStageName": "Client Directory Creation",
         "UpdateSourcePlatform": "All",
         "UpdateSource": "CreateDirectory",
-        "UpdateSourceArgs": "{{$FullRootDir}}client"
+        "UpdateSourceArgs": "{{$FullRootDir}}client",
+        "SkipOnFailure": false
     },
     {
         "UpdateStageName": "7-Zip Directory Creation",
         "UpdateSourcePlatform": "Windows",
         "UpdateSource": "CreateDirectory",
         "UpdateSourceArgs": "{{$FullRootDir}}7-Zip",
-        "OneShot": true
-    },
-    {
-        "UpdateStageName": "7-Zip Installer Download",
-        "UpdateSourcePlatform": "Windows",
-        "UpdateSource": "FetchURL",
-        "UpdateSourceData": "https://7-zip.org/a/7z2407-x64.exe",
-        "UpdateSourceTarget": "{{$FullRootDir}}7-Zip",
-        "OverwriteExistingFiles": true,
-        "OneShot": true
-    },
-    {
-        "UpdateStageName": "7-Zip Console Tool Download",
-        "UpdateSourcePlatform": "Windows",
-        "UpdateSource": "FetchURL",
-        "UpdateSourceData": "https://www.7-zip.org/a/7zr.exe",
-        "UpdateSourceTarget": "{{$FullRootDir}}7-Zip",
-        "OverwriteExistingFiles": true,
-        "OneShot": true
+        "SkipOnFailure": false
     },
     {
         "UpdateStageName": "7-Zip Installation",
         "UpdateSourcePlatform": "Windows",
         "UpdateSource": "Executable",
-        "UpdateSourceData": "cmd.exe",
-        "UpdateSourceArgs": "/C cd et-legacy\\7-Zip && 7zr.exe x -y -aoa 7z2407-x64.exe > NUL 2>&1",
-        "SkipOnFailure": true,
-        "OneShot": true
+        "UpdateSourceData": "powershell.exe",
+        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Set-Location -Path 'et-legacy/7-Zip'; if (Test-Path '7z.exe') { exit 0 } else { Invoke-WebRequest -UseBasicParsing -Uri 'https://7-zip.org/a/7z2409-x64.exe' -OutFile '7z-installer.exe' }; if ($?) { Invoke-WebRequest -UseBasicParsing -Uri 'https://www.7-zip.org/a/7zr.exe' -OutFile '7zr.exe' }; if ($?) { & ./7zr.exe x -y -aoa 7z-installer.exe *> $null 2>&1; Remove-Item -Path '7z-installer.exe' -Force -ErrorAction SilentlyContinue | Out-Null }\"",
+        "SkipOnFailure": false
     },
     {
         "UpdateStageName": "Server Download",
         "UpdateSourcePlatform": "Windows",
         "UpdateSource": "Executable",
         "UpdateSourceData": "powershell.exe",
-        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; (Invoke-WebRequest -Uri \\\"https://www.etlegacy.com/download\\\" -UseBasicParsing).Content -match 'data-href=\\\"([^\\\"]+)\\\"[^>]*>Win64 archive' | Out-Null; $DOWNLOAD_URL = $matches[1]; Invoke-WebRequest -UseBasicParsing -Uri $DOWNLOAD_URL -OutFile 'et-legacy.zip'\"",
+        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (Invoke-WebRequest -Uri \\\"https://www.etlegacy.com/download\\\" -UseBasicParsing).Content -match 'data-href=\\\"([^\\\"]+)\\\"[^>]*>Win64 archive' | Out-Null; $DOWNLOAD_URL = $matches[1]; Invoke-WebRequest -UseBasicParsing -Uri $DOWNLOAD_URL -OutFile 'et-legacy.zip'\"",
         "UpdateSourceConditionSetting": "ServerVersion",
         "UpdateSourceConditionValue": "x86_64",
         "SkipOnFailure": false
@@ -54,7 +36,7 @@
         "UpdateSourcePlatform": "Windows",
         "UpdateSource": "Executable",
         "UpdateSourceData": "powershell.exe",
-        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; (Invoke-WebRequest -Uri \\\"https://www.etlegacy.com/download\\\" -UseBasicParsing).Content -match 'data-href=\\\"([^\\\"]+)\\\"[^>]*>Win32 archive' | Out-Null; $DOWNLOAD_URL = $matches[1]; Invoke-WebRequest -UseBasicParsing -Uri $DOWNLOAD_URL -OutFile 'et-legacy.zip'\"",
+        "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; (Invoke-WebRequest -Uri \\\"https://www.etlegacy.com/download\\\" -UseBasicParsing).Content -match 'data-href=\\\"([^\\\"]+)\\\"[^>]*>Win32 archive' | Out-Null; $DOWNLOAD_URL = $matches[1]; Invoke-WebRequest -UseBasicParsing -Uri $DOWNLOAD_URL -OutFile 'et-legacy.zip'\"",
         "UpdateSourceConditionSetting": "ServerVersion",
         "UpdateSourceConditionValue": "i386",
         "SkipOnFailure": false
@@ -66,7 +48,8 @@
         "UpdateSourceData": "et-legacy.zip",
         "UpdateSourceTarget": "{{$FullRootDir}}",
         "OverwriteExistingFiles": true,
-        "DeleteAfterExtract": true
+        "DeleteAfterExtract": true,
+        "SkipOnFailure": false
     },
     {
         "UpdateStageName": "Server Installation",
@@ -126,7 +109,8 @@
         "OverwriteExistingFiles": true,
         "DeleteAfterExtract": true,
         "UpdateSourceConditionSetting": "DisableWETDownload",
-        "UpdateSourceConditionValue": "false"
+        "UpdateSourceConditionValue": "false",
+        "SkipOnFailure": false
     },
     {
         "UpdateStageName": "Client Files Installation",
